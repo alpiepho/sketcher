@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Sketch',
+      title: 'Sketcher',
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
         colorScheme: const ColorScheme.dark(),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Sketch'),
+      home: const MyHomePage(title: 'Sketcher'),
     );
   }
 }
@@ -71,48 +71,83 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
+    double drawWidth = width * 0.9;
+    double drawHeight = height * 0.5;
+    double padWidth = width * 0.46;
+    // double padHeight = height * 0.3;
+    double padHeight = height * 0.2; // TODO undo this.
+    double switchWidth = width * 0.04;
+    double switchHeight = height * 0.1;
+    double buttonWidth = width * 0.10;
+    double buttonHeight = height * 0.10;
+
     return Scaffold(
       appBar: AppBar(
-        // TRY THIS: Try changing the color here to a specific color (to
-        // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
-        // change color while the other colors stay the same.
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
+        // backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        title: Text(
+          widget.title,
+        ),
       ),
       body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
         child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          //
-          // TRY THIS: Invoke "debug painting" (choose the "Toggle Debug Paint"
-          // action in the IDE, or press "p" in the console), to see the
-          // wireframe for each widget.
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
+            // drawing area
             Container(
-              color: Colors.white,
-              margin: const EdgeInsets.all(10),
-              width: 100,
-              height: 100,
-              child: const Text("TEST"),
+              // color: Colors.white,
+              margin: const EdgeInsets.fromLTRB(0, 0, 0, 20),
+              width: drawWidth,
+              height: drawHeight,
+              decoration:
+                  BoxDecoration(border: Border.all(color: Colors.blueAccent)),
+              // child: const Text("TEST"),
             ),
+            // row of controls
+            Row(
+              children: [
+                // left/up-down pad
+                Container(
+                  margin: const EdgeInsets.fromLTRB(10, 0, 0, 0),
+                  width: padWidth,
+                  height: padHeight,
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.blueAccent),
+                  ),
+                ),
+
+                // pen up-down button
+                Container(
+                  width: switchWidth,
+                  height: switchHeight,
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.blueAccent),
+                  ),
+                ),
+
+                // right left-right pad
+                Container(
+                  margin: const EdgeInsets.fromLTRB(0, 0, 10, 0),
+                  width: padWidth,
+                  height: padHeight,
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.blueAccent),
+                  ),
+                ),
+              ],
+            ),
+
+            // clear button
+            Container(
+              margin: const EdgeInsets.fromLTRB(0, 20, 0, 0),
+              width: buttonWidth,
+              height: buttonHeight,
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.blueAccent),
+              ),
+            ),
+
             const Text(
               'You have pushed the button this many times:',
             ),
@@ -126,9 +161,9 @@ class _MyHomePageState extends State<MyHomePage> {
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
         tooltip: 'Increment',
-        backgroundColor: Colors.white,
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+        backgroundColor: Colors.blueAccent,
+        child: const Icon(Icons.question_mark_sharp),
+      ),
     );
   }
 }

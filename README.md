@@ -46,7 +46,20 @@ title: Sketch
 
 - [x] start README.md
 - [x] outline screen
-- [ ] boxes for parts
+- [x] boxes for parts
+- [ ] about modal
+- [ ] remove sample counter
+- [ ] pen red/green
+- [ ] marks white
+- [ ] pen switch - screen
+- [ ] pen switch - operation
+- [ ] clear button - screen
+- [ ] clear button - operation
+- [ ] pad icons - screen
+- [ ] pad gestures - operation
+- [ ] tbd
+- [ ] tbd
+- [ ] tbd
 - [ ] tbd
 - [ ] tbd
 - [ ] cleanup code
