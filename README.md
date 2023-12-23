@@ -47,8 +47,10 @@ title: Sketch
 - [x] start README.md
 - [x] outline screen
 - [x] boxes for parts
-- [ ] about modal
-- [ ] remove sample counter
+- [x] about modal
+- [x] fix hyperlink from about
+- [x] fix colors of about - better, messy
+- [x] remove sample counter
 - [ ] pen red/green
 - [ ] marks white
 - [ ] pen switch - screen
