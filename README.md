@@ -65,6 +65,7 @@ title: Sketch
 - [ ] tbd
 - [ ] tbd
 - [ ] cleanup code
+- [ ] cleanup about details
 
 
 
