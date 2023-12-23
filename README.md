@@ -53,11 +53,11 @@ title: Sketch
 - [x] remove sample counter
 - [ ] pen red/green
 - [ ] marks white
-- [ ] pen switch - screen
-- [ ] pen switch - operation
-- [ ] clear button - screen
-- [ ] clear button - operation
-- [ ] pad icons - screen
+- [x] pen switch - screen
+- [x] pen switch - operation
+- [x] clear button - screen
+- [?] clear button - operation
+- [x] pad icons - screen
 - [ ] pad gestures - operation
 - [ ] tbd
 - [ ] tbd
@@ -74,4 +74,12 @@ title: Sketch
 - [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
 - [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 - https://learn.adafruit.com/sketch-drawing-toy/overview
+- change AboutDialog style:
+- https://www.dhiwise.com/post/how-to-create-and-customize-flutter-alert-dialogs
+- Switch:
+- https://api.flutter.dev/flutter/widgets/RotatedBox-class.html
+- https://api.flutter.dev/flutter/material/Switch-class.html
+- Touchpad:
+- https://gist.github.com/graphicbeacon/eb7e2ca7b3ff1d674819403789744173
+
 
