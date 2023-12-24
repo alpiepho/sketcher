@@ -7,7 +7,7 @@ A Flutter application that implements a Sketcher toy, based on [Sketch Drawing T
 ```text
 title: Sketch
 -----------------------------------------
-|                                       |
+| 0,0                                   |
 |                                       |
 |                                       |
 |                                       |
@@ -16,7 +16,7 @@ title: Sketch
 |                          x            |
 |                                       |
 |                                       |
-|                                       |
+|                                  99,99|
 -----------------------------------------
 
                    pen
@@ -51,7 +51,7 @@ title: Sketch
 - [x] fix hyperlink from about
 - [x] fix colors of about - better, messy
 - [x] remove sample counter
-- [ ] pen red/green
+- [x] pen red/green
 - [ ] marks white
 - [x] pen switch - screen
 - [x] pen switch - operation

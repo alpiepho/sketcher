@@ -50,8 +50,10 @@ class _MyHomePageState extends State<MyHomePage> {
     double buttonWidth = width * 0.08;
     double buttonHeight = height * 0.06;
 
-    double cursorWidth = 0.01;
-    double cursorHeight = 0.01;
+    double markrSize = 6;
+    double markPad = 1;
+    double cursorSize = 6;
+    double cursorPad = 2;
 
     double cursorPosX = drawWidth / 2;
     double cursorPosY = drawHeight / 2;
@@ -77,14 +79,84 @@ class _MyHomePageState extends State<MyHomePage> {
                 border: Border.all(color: Colors.blueGrey),
                 borderRadius: BorderRadius.circular(10),
               ),
-              // cursor
-              child: Container(
-                // TODO use margin to move cursor???
-                margin: const EdgeInsets.fromLTRB(10, 10, 10, 20),
-                // width: cursorWidth,
-                // height: cursorHeight,
-                color: (upDown ? Colors.green : Colors.red),
-              ),
+              // drawing
+              child: Stack(children: [
+                // mark
+                Positioned(
+                  left: cursorPosX-10-10-10,
+                  top: cursorPosY,
+                  child: Container(
+                    padding: EdgeInsets.fromLTRB(
+                      markPad,
+                      markPad,
+                      markPad,
+                      markPad,
+                    ),
+                    // color: (upDown ? Colors.green : Colors.red),
+                    child: Icon(
+                      size: markrSize,
+                      color: Colors.white,
+                      Icons.square,
+                    ),
+                  ),
+                ),
+                Positioned(
+                  left: cursorPosX-10-10,
+                  top: cursorPosY,
+                  child: Container(
+                    padding: EdgeInsets.fromLTRB(
+                      markPad,
+                      markPad,
+                      markPad,
+                      markPad,
+                    ),
+                    // color: (upDown ? Colors.green : Colors.red),
+                    child: Icon(
+                      size: markrSize,
+                      color: Colors.white,
+                      Icons.square,
+                    ),
+                  ),
+                ),
+                Positioned(
+                  left: cursorPosX-10,
+                  top: cursorPosY,
+                  child: Container(
+                    padding: EdgeInsets.fromLTRB(
+                      markPad,
+                      markPad,
+                      markPad,
+                      markPad,
+                    ),
+                    // color: (upDown ? Colors.green : Colors.red),
+                    child: Icon(
+                      size: markrSize,
+                      color: Colors.white,
+                      Icons.square,
+                    ),
+                  ),
+                ),
+       
+                // cursor
+                Positioned(
+                  left: cursorPosX,
+                  top: cursorPosY,
+                  child: Container(
+                    padding: EdgeInsets.fromLTRB(
+                      cursorPad,
+                      cursorPad,
+                      cursorPad,
+                      cursorPad,
+                    ),
+                    color: (upDown ? Colors.green : Colors.red),
+                    child: Icon(
+                      size: cursorSize,
+                      color: Colors.black,
+                      Icons.square,
+                    ),
+                  ),
+                ),
+              ]),
             ),
             // row of controls
             Row(
