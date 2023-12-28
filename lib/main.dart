@@ -33,9 +33,12 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  // int _counter = 0;
   final Uri _url = Uri.parse('https://github.com/alpiepho/sketcher');
   bool upDown = true;
+  double cursorPosX = -1;
+  double cursorPosY = -1;
+  double startHori = -1;
+  double startVert = -1;
 
   @override
   Widget build(BuildContext context) {
@@ -54,9 +57,15 @@ class _MyHomePageState extends State<MyHomePage> {
     double markPad = 1;
     double cursorSize = 6;
     double cursorPad = 2;
+    double cursorRatio = 0.05;
 
-    double cursorPosX = drawWidth / 2;
-    double cursorPosY = drawHeight / 2;
+    if (cursorPosX == -1 && cursorPosY == -1) {
+      cursorPosX = drawWidth / 2;
+      cursorPosY = drawHeight / 2;
+      print("$cursorPosX");
+      print("$cursorPosY");
+     }
+
 
     return Scaffold(
       appBar: AppBar(
@@ -81,62 +90,61 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               // drawing
               child: Stack(children: [
-                // mark
-                Positioned(
-                  left: cursorPosX-10-10-10,
-                  top: cursorPosY,
-                  child: Container(
-                    padding: EdgeInsets.fromLTRB(
-                      markPad,
-                      markPad,
-                      markPad,
-                      markPad,
-                    ),
-                    // color: (upDown ? Colors.green : Colors.red),
-                    child: Icon(
-                      size: markrSize,
-                      color: Colors.white,
-                      Icons.square,
-                    ),
-                  ),
-                ),
-                Positioned(
-                  left: cursorPosX-10-10,
-                  top: cursorPosY,
-                  child: Container(
-                    padding: EdgeInsets.fromLTRB(
-                      markPad,
-                      markPad,
-                      markPad,
-                      markPad,
-                    ),
-                    // color: (upDown ? Colors.green : Colors.red),
-                    child: Icon(
-                      size: markrSize,
-                      color: Colors.white,
-                      Icons.square,
-                    ),
-                  ),
-                ),
-                Positioned(
-                  left: cursorPosX-10,
-                  top: cursorPosY,
-                  child: Container(
-                    padding: EdgeInsets.fromLTRB(
-                      markPad,
-                      markPad,
-                      markPad,
-                      markPad,
-                    ),
-                    // color: (upDown ? Colors.green : Colors.red),
-                    child: Icon(
-                      size: markrSize,
-                      color: Colors.white,
-                      Icons.square,
-                    ),
-                  ),
-                ),
-       
+                // // mark
+                // Positioned(
+                //   left: cursorPosX - 10 - 10 - 10,
+                //   top: cursorPosY,
+                //   child: Container(
+                //     padding: EdgeInsets.fromLTRB(
+                //       markPad,
+                //       markPad,
+                //       markPad,
+                //       markPad,
+                //     ),
+                //     child: Icon(
+                //       size: markrSize,
+                //       color: Colors.white,
+                //       Icons.square,
+                //     ),
+                //   ),
+                // ),
+                // // mark
+                // Positioned(
+                //   left: cursorPosX - 10 - 10,
+                //   top: cursorPosY,
+                //   child: Container(
+                //     padding: EdgeInsets.fromLTRB(
+                //       markPad,
+                //       markPad,
+                //       markPad,
+                //       markPad,
+                //     ),
+                //     child: Icon(
+                //       size: markrSize,
+                //       color: Colors.white,
+                //       Icons.square,
+                //     ),
+                //   ),
+                // ),
+                // // mark
+                // Positioned(
+                //   left: cursorPosX - 10,
+                //   top: cursorPosY,
+                //   child: Container(
+                //     padding: EdgeInsets.fromLTRB(
+                //       markPad,
+                //       markPad,
+                //       markPad,
+                //       markPad,
+                //     ),
+                //     child: Icon(
+                //       size: markrSize,
+                //       color: Colors.white,
+                //       Icons.square,
+                //     ),
+                //   ),
+                // ),
+
                 // cursor
                 Positioned(
                   left: cursorPosX,
@@ -162,13 +170,37 @@ class _MyHomePageState extends State<MyHomePage> {
             Row(
               children: [
                 // left/up-down pad
-                Container(
-                  margin: const EdgeInsets.fromLTRB(20, 0, 8, 0),
-                  width: padWidth,
-                  height: padHeight,
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.blueGrey),
-                    borderRadius: BorderRadius.circular(10),
+                GestureDetector(
+                  onPanStart: (details) {
+                    setState(() {
+                      // startHori = -1;
+                      startVert = -1;
+                    });
+                  },
+                  onPanUpdate: (details) {
+                    setState(() {
+                    if (startVert == -1) {
+                      startVert = details.globalPosition.dy;
+                    }
+                    var topVal = details.globalPosition.dy - startVert;
+                    topVal *= cursorRatio;
+                      cursorPosY += topVal;
+                      if (cursorPosY < 0) {
+                        cursorPosY = 0;
+                      }
+                      if (cursorPosY > (drawHeight - cursorSize*2)) {
+                        cursorPosY = (drawHeight - cursorSize*2);
+                      }
+                    });
+                  },
+                  child: Container(
+                    margin: const EdgeInsets.fromLTRB(20, 0, 8, 0),
+                    width: padWidth,
+                    height: padHeight,
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.blueGrey),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
                   ),
                 ),
 
@@ -176,9 +208,6 @@ class _MyHomePageState extends State<MyHomePage> {
                 SizedBox(
                   width: switchWidth,
                   height: switchHeight,
-                  // decoration: BoxDecoration(
-                  //   border: Border.all(color: Colors.blueAccent),
-                  // ),
                   child: RotatedBox(
                     quarterTurns: 1,
                     child: Switch.adaptive(
@@ -196,13 +225,36 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
 
                 // right left-right pad
-                Container(
-                  margin: const EdgeInsets.fromLTRB(8, 0, 10, 0),
-                  width: padWidth,
-                  height: padHeight,
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.blueGrey),
-                    borderRadius: BorderRadius.circular(10),
+                GestureDetector(
+                  onPanStart: (details) {
+                    setState(() {
+                      startHori = -1;
+                    });
+                  },
+                  onPanUpdate: (details) {
+                    setState(() {
+                    if (startHori == -1) {
+                      startHori = details.globalPosition.dx;
+                    }
+                    var leftVal = details.globalPosition.dx - startHori;
+                    leftVal *= cursorRatio;
+                      cursorPosX += leftVal;
+                      if (cursorPosX < 0) {
+                        cursorPosX = 0;
+                      }
+                      if (cursorPosX > (drawWidth - cursorSize*2)) {
+                        cursorPosX = (drawWidth - cursorSize*2);
+                      }
+                    });
+                  },
+                  child: Container(
+                    margin: const EdgeInsets.fromLTRB(8, 0, 10, 0),
+                    width: padWidth,
+                    height: padHeight,
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.blueGrey),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
                   ),
                 ),
               ],
@@ -223,14 +275,6 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: const Text("CLR"),
               ),
             ),
-
-            // const Text(
-            //   'You have pushed the button this many times:',
-            // ),
-            // Text(
-            //   '$_counter',
-            //   style: Theme.of(context).textTheme.headlineMedium,
-            // ),
           ],
         ),
       ),

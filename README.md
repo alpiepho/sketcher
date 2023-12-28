@@ -58,7 +58,7 @@ title: Sketch
 - [x] clear button - screen
 - [?] clear button - operation
 - [x] pad icons - screen
-- [ ] pad gestures - operation
+- [x] pad gestures - operation
 - [ ] tbd
 - [ ] tbd
 - [ ] tbd
@@ -66,6 +66,10 @@ title: Sketch
 - [ ] tbd
 - [ ] cleanup code
 - [ ] cleanup about details
+- [ ] host as web on gh-page
+- [ ] deploy to android
+- [ ] deploy to ios
+
 
 
 
