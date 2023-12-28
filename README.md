@@ -32,14 +32,6 @@ title: Sketch
                  |clr|              / + \
                  -----              \   /
 
-- black back ground
-- red/green square cursor
-- outline box for draw area?
-- outline box for drag areas?
-- floating button as info modal
-- (future) floating button as settings
-- cleanup code
-
 ```
 
 ## TODO
@@ -52,23 +44,24 @@ title: Sketch
 - [x] fix colors of about - better, messy
 - [x] remove sample counter
 - [x] pen red/green
-- [ ] marks white
+- [x] marks white
 - [x] pen switch - screen
 - [x] pen switch - operation
 - [x] clear button - screen
 - [?] clear button - operation
 - [x] pad icons - screen
 - [x] pad gestures - operation
-- [ ] tbd
-- [ ] tbd
-- [ ] tbd
-- [ ] tbd
-- [ ] tbd
-- [ ] cleanup code
-- [ ] cleanup about details
+- [ ] fix broken line of marks
+- [x] cleanup code
+- [x] cleanup about details
+- [ ] add version to about
+- [ ] test ios simulator - sizes?
+- [ ] text android simulator - sizes?
 - [ ] host as web on gh-page
 - [ ] deploy to android
 - [ ] deploy to ios
+- [ ] future: change colors
+- [ ] future: save drawing somehow
 
 
 

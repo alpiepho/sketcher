@@ -8,7 +8,6 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -39,6 +38,7 @@ class _MyHomePageState extends State<MyHomePage> {
   double cursorPosY = -1;
   double startHori = -1;
   double startVert = -1;
+  List<Widget> marks = <Widget>[];
 
   @override
   Widget build(BuildContext context) {
@@ -53,23 +53,41 @@ class _MyHomePageState extends State<MyHomePage> {
     double buttonWidth = width * 0.08;
     double buttonHeight = height * 0.06;
 
-    double markrSize = 6;
+    double markrSize = 4;
     double markPad = 1;
     double cursorSize = 6;
     double cursorPad = 2;
-    double cursorRatio = 0.05;
+    double cursorRatio = 0.01;
 
     if (cursorPosX == -1 && cursorPosY == -1) {
       cursorPosX = drawWidth / 2;
       cursorPosY = drawHeight / 2;
-      print("$cursorPosX");
-      print("$cursorPosY");
-     }
+    }
 
+    if (upDown) {
+      marks.add(
+        Positioned(
+          left: cursorPosX,
+          top: cursorPosY,
+          child: Container(
+            padding: EdgeInsets.fromLTRB(
+              markPad,
+              markPad,
+              markPad,
+              markPad,
+            ),
+            child: Icon(
+              size: markrSize,
+              color: Colors.white,
+              Icons.square,
+            ),
+          ),
+        ),
+      );
+    }
 
     return Scaffold(
       appBar: AppBar(
-        // backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(
           widget.title,
         ),
@@ -90,61 +108,8 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               // drawing
               child: Stack(children: [
-                // // mark
-                // Positioned(
-                //   left: cursorPosX - 10 - 10 - 10,
-                //   top: cursorPosY,
-                //   child: Container(
-                //     padding: EdgeInsets.fromLTRB(
-                //       markPad,
-                //       markPad,
-                //       markPad,
-                //       markPad,
-                //     ),
-                //     child: Icon(
-                //       size: markrSize,
-                //       color: Colors.white,
-                //       Icons.square,
-                //     ),
-                //   ),
-                // ),
-                // // mark
-                // Positioned(
-                //   left: cursorPosX - 10 - 10,
-                //   top: cursorPosY,
-                //   child: Container(
-                //     padding: EdgeInsets.fromLTRB(
-                //       markPad,
-                //       markPad,
-                //       markPad,
-                //       markPad,
-                //     ),
-                //     child: Icon(
-                //       size: markrSize,
-                //       color: Colors.white,
-                //       Icons.square,
-                //     ),
-                //   ),
-                // ),
-                // // mark
-                // Positioned(
-                //   left: cursorPosX - 10,
-                //   top: cursorPosY,
-                //   child: Container(
-                //     padding: EdgeInsets.fromLTRB(
-                //       markPad,
-                //       markPad,
-                //       markPad,
-                //       markPad,
-                //     ),
-                //     child: Icon(
-                //       size: markrSize,
-                //       color: Colors.white,
-                //       Icons.square,
-                //     ),
-                //   ),
-                // ),
-
+                // marks
+                ...marks,
                 // cursor
                 Positioned(
                   left: cursorPosX,
@@ -173,23 +138,22 @@ class _MyHomePageState extends State<MyHomePage> {
                 GestureDetector(
                   onPanStart: (details) {
                     setState(() {
-                      // startHori = -1;
                       startVert = -1;
                     });
                   },
                   onPanUpdate: (details) {
                     setState(() {
-                    if (startVert == -1) {
-                      startVert = details.globalPosition.dy;
-                    }
-                    var topVal = details.globalPosition.dy - startVert;
-                    topVal *= cursorRatio;
+                      if (startVert == -1) {
+                        startVert = details.globalPosition.dy;
+                      }
+                      var topVal = details.globalPosition.dy - startVert;
+                      topVal *= cursorRatio;
                       cursorPosY += topVal;
                       if (cursorPosY < 0) {
                         cursorPosY = 0;
                       }
-                      if (cursorPosY > (drawHeight - cursorSize*2)) {
-                        cursorPosY = (drawHeight - cursorSize*2);
+                      if (cursorPosY > (drawHeight - cursorSize * 2)) {
+                        cursorPosY = (drawHeight - cursorSize * 2);
                       }
                     });
                   },
@@ -211,7 +175,6 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: RotatedBox(
                     quarterTurns: 1,
                     child: Switch.adaptive(
-                      // Don't use the ambient CupertinoThemeData to style this switch.
                       applyCupertinoTheme: false,
                       value: upDown,
                       inactiveTrackColor: Colors.red,
@@ -233,17 +196,17 @@ class _MyHomePageState extends State<MyHomePage> {
                   },
                   onPanUpdate: (details) {
                     setState(() {
-                    if (startHori == -1) {
-                      startHori = details.globalPosition.dx;
-                    }
-                    var leftVal = details.globalPosition.dx - startHori;
-                    leftVal *= cursorRatio;
+                      if (startHori == -1) {
+                        startHori = details.globalPosition.dx;
+                      }
+                      var leftVal = details.globalPosition.dx - startHori;
+                      leftVal *= cursorRatio;
                       cursorPosX += leftVal;
                       if (cursorPosX < 0) {
                         cursorPosX = 0;
                       }
-                      if (cursorPosX > (drawWidth - cursorSize*2)) {
-                        cursorPosX = (drawWidth - cursorSize*2);
+                      if (cursorPosX > (drawWidth - cursorSize * 2)) {
+                        cursorPosX = (drawWidth - cursorSize * 2);
                       }
                     });
                   },
@@ -266,8 +229,8 @@ class _MyHomePageState extends State<MyHomePage> {
               width: buttonWidth,
               height: buttonHeight,
               decoration: BoxDecoration(
-                  // border: Border.all(color: Colors.blueAccent),
-                  borderRadius: BorderRadius.circular(100)),
+                borderRadius: BorderRadius.circular(100),
+              ),
               child: FloatingActionButton(
                 onPressed: _clearDrawing,
                 tooltip: 'Clear',
@@ -288,26 +251,18 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void _aboutDialog() {
-    // print("_aboutDialog");
-
+    // NOTE: showAboutDialog does not allow easy color changes
     showDialog<void>(
       context: context,
       barrierDismissible: true,
-      // barrierColor: barrierColor,
-      // barrierLabel: barrierLabel,
       useRootNavigator: true,
       builder: (BuildContext context) {
         return Theme(
           data: ThemeData(
             primaryColor: Colors.red,
-            // colorScheme: const ColorScheme.dark(),
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
           ),
           child: AboutDialog(
-              // applicationName: applicationName,
-              // applicationVersion: applicationVersion,
-              // applicationIcon: applicationIcon,
-              // applicationLegalese: applicationLegalese,
               children: [
                 const Text(
                     "Sketcher App: based on Sketch Drawing Toy with CircuitPython."),
@@ -318,44 +273,20 @@ class _MyHomePageState extends State<MyHomePage> {
               ]),
         );
       },
-      // routeSettings: routeSettings,
-      // anchorPoint: anchorPoint,
     );
-
-    // showAboutDialog(
-    //   context: context,
-    //   // applicationLegalese:
-    //   //     "Sketcher App: based on Sketch Drawing Toy with CircuitPython.",
-    //   children: [
-    //     const Text(
-    //         "Sketcher App: based on Sketch Drawing Toy with CircuitPython."),
-    //       ElevatedButton(
-    //         onPressed: _launchUrl,
-    //         child: Text(_url.toString()),
-    //       ),
-    //   ],
-    // );
-    // setState(() {
-    //   // This call to setState tells the Flutter framework that something has
-    //   // changed in this State, which causes it to rerun the build method below
-    //   // so that the display can reflect the updated values. If we changed
-    //   // _counter without calling setState(), then the build method would not be
-    //   // called again, and so nothing would appear to happen.
-    //   _counter++;
-    // });
   }
 
   Future<void> _launchUrl() async {
+    // dont need await
     launchUrl(_url);
-    // if (!await launchUrl(_url)) {
-    //   throw Exception('Could not launch $_url');
-    // }
   }
 
   void _clearDrawing() {
-    print("_clearDrawwing");
     setState(() {
+      cursorPosX = -1;
+      cursorPosY = -1;
       upDown = true;
+      marks = <Widget>[];
     });
   }
 }
