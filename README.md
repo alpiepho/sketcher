@@ -1,4 +1,4 @@
-# sketcher
+# tn_sketcher
 
 A Flutter application that implements a Sketcher toy, based on [Sketch Drawing Toy with CircuitPython](https://learn.adafruit.com/sketch-drawing-toy/overview).
 
@@ -57,6 +57,8 @@ title: Sketch
 - [x] test ios simulator - sizes?
 - [x] text android simulator - sizes?
 - [x] text chrome - sizes?
+- [ ] favicon
+- [ ] pubspec
 - [ ] host as web on gh-page
 - [ ] deploy to android
 - [ ] deploy to ios
