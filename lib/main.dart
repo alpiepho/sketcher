@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -11,14 +12,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Sketcher',
+      title: 'TN Sketcher',
       theme: ThemeData(
         colorScheme: const ColorScheme.dark(),
         primarySwatch: Colors.blue,
         useMaterial3: true,
       ),
       debugShowCheckedModeBanner: false,
-      home: const MyHomePage(title: 'Sketcher'),
+      home: const MyHomePage(title: 'TN Sketcher'),
     );
   }
 }
@@ -32,6 +33,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  final String _version = "Version 0.1";
   final Uri _url = Uri.parse('https://github.com/alpiepho/sketcher');
   bool upDown = true;
   double cursorPosX = -1;
@@ -44,14 +46,24 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
+    if (width > 600) {
+      width = 600;
+    }
     double drawWidth = width * 0.9;
-    double drawHeight = height * 0.5;
-    double padWidth = width * 0.44;
+    double drawHeight = height * 0.4;
+    double padWidth = width * 0.4;
     double padHeight = height * 0.3;
     double switchWidth = width * 0.04;
     double switchHeight = height * 0.1;
     double buttonWidth = width * 0.08;
     double buttonHeight = height * 0.06;
+
+    if (defaultTargetPlatform == TargetPlatform.android) {
+      buttonWidth *= 2;
+    }
+    if (defaultTargetPlatform == TargetPlatform.iOS) {
+      buttonWidth *= 2;
+    }
 
     double markrSize = 4;
     double markPad = 1;
@@ -133,6 +145,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             // row of controls
             Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 // left/up-down pad
                 GestureDetector(
@@ -178,6 +191,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       applyCupertinoTheme: false,
                       value: upDown,
                       inactiveTrackColor: Colors.red,
+                      activeColor: Colors.green,
                       onChanged: (bool value) {
                         setState(() {
                           upDown = value;
@@ -264,8 +278,10 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           child: AboutDialog(
               children: [
+                Text(
+                    "$_version"),
                 const Text(
-                    "Sketcher App: based on Sketch Drawing Toy with CircuitPython."),
+                    "(based on Sketch Drawing Toy with CircuitPython)"),
                 ElevatedButton(
                   onPressed: _launchUrl,
                   child: Text(_url.toString()),

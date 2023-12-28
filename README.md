@@ -48,18 +48,19 @@ title: Sketch
 - [x] pen switch - screen
 - [x] pen switch - operation
 - [x] clear button - screen
-- [?] clear button - operation
+- [x] clear button - operation
 - [x] pad icons - screen
 - [x] pad gestures - operation
-- [ ] fix broken line of marks
 - [x] cleanup code
 - [x] cleanup about details
-- [ ] add version to about
-- [ ] test ios simulator - sizes?
-- [ ] text android simulator - sizes?
+- [x] add version to about
+- [x] test ios simulator - sizes?
+- [x] text android simulator - sizes?
+- [x] text chrome - sizes?
 - [ ] host as web on gh-page
 - [ ] deploy to android
 - [ ] deploy to ios
+- [ ] fix broken line of marks
 - [ ] future: change colors
 - [ ] future: save drawing somehow
 
