@@ -81,5 +81,8 @@ title: Sketch
 - https://api.flutter.dev/flutter/material/Switch-class.html
 - Touchpad:
 - https://gist.github.com/graphicbeacon/eb7e2ca7b3ff1d674819403789744173
+- Deployment
+- https://docs.flutter.dev/deployment
+- https://flutterawesome.com/simple-way-to-deploy-a-flutter-web-application-on-github/amp/
 
 
