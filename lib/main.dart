@@ -38,6 +38,8 @@ class _MyHomePageState extends State<MyHomePage> {
   bool upDown = true;
   double cursorPosX = -1;
   double cursorPosY = -1;
+  double lastPosX = -1; // used for fixing broken lines
+  double lastPosY = -1; // used for fixing broken lines
   double startHori = -1;
   double startVert = -1;
   List<Widget> marks = <Widget>[];
@@ -57,6 +59,15 @@ class _MyHomePageState extends State<MyHomePage> {
     double switchHeight = height * 0.1;
     double buttonWidth = width * 0.08;
     double buttonHeight = height * 0.06;
+    double markSize = 4;
+    double markPad = 1;
+    double cursorSize = 6;
+    double cursorPad = 2;
+    double cursorRatio = 0.01;
+
+    // bigger to get screenshot
+    markSize *= 2;
+    cursorSize *= 2;
 
     if (defaultTargetPlatform == TargetPlatform.android) {
       buttonWidth *= 2;
@@ -65,37 +76,33 @@ class _MyHomePageState extends State<MyHomePage> {
       buttonWidth *= 2;
     }
 
-    double markrSize = 4;
-    double markPad = 1;
-    double cursorSize = 6;
-    double cursorPad = 2;
-    double cursorRatio = 0.01;
-
     if (cursorPosX == -1 && cursorPosY == -1) {
       cursorPosX = drawWidth / 2;
       cursorPosY = drawHeight / 2;
+      lastPosX = cursorPosX;
+      lastPosY = cursorPosY;
     }
 
     if (upDown) {
-      marks.add(
-        Positioned(
-          left: cursorPosX,
-          top: cursorPosY,
-          child: Container(
-            padding: EdgeInsets.fromLTRB(
-              markPad,
-              markPad,
-              markPad,
-              markPad,
-            ),
-            child: Icon(
-              size: markrSize,
-              color: Colors.white,
-              Icons.square,
+        marks.add(
+          Positioned(
+            left: lastPosX,
+            top: lastPosY,
+            child: Container(
+              padding: EdgeInsets.fromLTRB(
+                markPad,
+                markPad,
+                markPad,
+                markPad,
+              ),
+              child: Icon(
+                size: markSize,
+                color: Colors.white,
+                Icons.square,
+              ),
             ),
           ),
-        ),
-      );
+        );
     }
 
     return Scaffold(
@@ -161,6 +168,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       }
                       var topVal = details.globalPosition.dy - startVert;
                       topVal *= cursorRatio;
+                      lastPosY = cursorPosY;
                       cursorPosY += topVal;
                       if (cursorPosY < 0) {
                         cursorPosY = 0;
@@ -215,6 +223,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       }
                       var leftVal = details.globalPosition.dx - startHori;
                       leftVal *= cursorRatio;
+                      lastPosX = cursorPosX;
                       cursorPosX += leftVal;
                       if (cursorPosX < 0) {
                         cursorPosX = 0;
@@ -276,17 +285,14 @@ class _MyHomePageState extends State<MyHomePage> {
             primaryColor: Colors.red,
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
           ),
-          child: AboutDialog(
-              children: [
-                Text(
-                    "$_version"),
-                const Text(
-                    "(based on Sketch Drawing Toy with CircuitPython)"),
-                ElevatedButton(
-                  onPressed: _launchUrl,
-                  child: Text(_url.toString()),
-                ),
-              ]),
+          child: AboutDialog(children: [
+            Text("$_version"),
+            const Text("(based on Sketch Drawing Toy with CircuitPython)"),
+            ElevatedButton(
+              onPressed: _launchUrl,
+              child: Text(_url.toString()),
+            ),
+          ]),
         );
       },
     );

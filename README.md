@@ -34,6 +34,10 @@ title: Sketch
 
 ```
 
+## Steps for GH Page Release
+
+- 
+
 ## TODO
 
 - [x] start README.md
@@ -55,14 +59,20 @@ title: Sketch
 - [x] cleanup about details
 - [x] add version to about
 - [x] test ios simulator - sizes?
-- [x] text android simulator - sizes?
-- [x] text chrome - sizes?
-- [ ] favicon
+- [x] test android simulator - sizes?
+- [x] test chrome - sizes?
+- [x] test on android device
+- [ ] test on iphone
+- [x] favicon
 - [ ] pubspec
-- [ ] host as web on gh-page
-- [ ] deploy to android
-- [ ] deploy to ios
+- [x] host as web on gh-page
+- [ ] fix touch pad speed
+- [-] deploy to android
+- [-] deploy to ios
+- [ ] refactor long functions
 - [ ] fix broken line of marks
+- [ ] future: change line stroke size
+- [ ] future: touch pad speed
 - [ ] future: change colors
 - [ ] future: save drawing somehow
 
@@ -81,8 +91,26 @@ title: Sketch
 - https://api.flutter.dev/flutter/material/Switch-class.html
 - Touchpad:
 - https://gist.github.com/graphicbeacon/eb7e2ca7b3ff1d674819403789744173
+
+- Run on Android
+- https://stackoverflow.com/questions/54444538/how-do-i-run-test-my-flutter-app-on-a-real-device
+
+
 - Deployment
 - https://docs.flutter.dev/deployment
 - https://flutterawesome.com/simple-way-to-deploy-a-flutter-web-application-on-github/amp/
+- this app: flutter build web --base-href /tn_sketcher/
 
+- https://www.appicon.co/
+- https://www.freecodecamp.org/news/build-and-release-flutter-app-in-google-play/
+- https://www.instabug.com/blog/how-to-release-your-flutter-app-for-ios-and-android
+- https://flutter-website-staging.firebaseapp.com/android-release/
+
+- sample
+- https://flutter.github.io/samples/#
+- https://github.com/VGVentures/slide_puzzle/tree/release
+
+- Steps to publist Android:
+- https://www.youtube.com/watch?v=g0GNuoCOtaQ
+- https://romannurik.github.io/AndroidAssetStudio/icons-launcher.html#foreground.type=clipart&foreground.clipart=android&foreground.space.trim=1&foreground.space.pad=0.25&foreColor=rgba(96%2C%20125%2C%20139%2C%200)&backColor=rgb(68%2C%20138%2C%20255)&crop=0&backgroundShape=circle&effects=none&name=ic_launcher
 
