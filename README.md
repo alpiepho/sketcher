@@ -36,7 +36,7 @@ title: Sketch
 
 ## Steps for GH Page Release
 
-- 
+- flutter build web --base-href /tn_sketcher/
 
 ## TODO
 
@@ -62,13 +62,15 @@ title: Sketch
 - [x] test android simulator - sizes?
 - [x] test chrome - sizes?
 - [x] test on android device
-- [ ] test on iphone
+- [-] test on iphone (problems signing up, dont like how dev mode on phone, maybe later)
 - [x] favicon
 - [ ] pubspec
 - [x] host as web on gh-page
 - [ ] fix touch pad speed
 - [-] deploy to android
 - [-] deploy to ios
+- [ ] as PWA
+- [ ] change PWA refresh???
 - [ ] refactor long functions
 - [ ] fix broken line of marks
 - [ ] future: change line stroke size
