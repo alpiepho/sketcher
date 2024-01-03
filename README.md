@@ -37,6 +37,7 @@ title: Sketch
 ## Steps for GH Page Release
 
 - flutter build web --base-href /tn_sketcher/
+- cp -rf build/web/* docs/
 
 ## TODO
 
@@ -69,7 +70,7 @@ title: Sketch
 - [ ] fix touch pad speed
 - [-] deploy to android
 - [-] deploy to ios
-- [ ] as PWA
+- [ ] as PWA (icons)
 - [ ] change PWA refresh???
 - [ ] refactor long functions
 - [ ] fix broken line of marks

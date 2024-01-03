@@ -1,3 +1,7 @@
+
+
+import 'dart:math';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -33,15 +37,15 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final String _version = "Version 0.1";
+  final String _version = "Version 0.2";
   final Uri _url = Uri.parse('https://github.com/alpiepho/sketcher');
   bool upDown = true;
   double cursorPosX = -1;
   double cursorPosY = -1;
-  double lastPosX = -1; // used for fixing broken lines
-  double lastPosY = -1; // used for fixing broken lines
-  double startHori = -1;
-  double startVert = -1;
+  double startLeftHori = -1;
+  double startLeftVert = -1;
+  double startRightHori = -1;
+  double startRightVert = -1;
   List<Widget> marks = <Widget>[];
 
   @override
@@ -79,15 +83,13 @@ class _MyHomePageState extends State<MyHomePage> {
     if (cursorPosX == -1 && cursorPosY == -1) {
       cursorPosX = drawWidth / 2;
       cursorPosY = drawHeight / 2;
-      lastPosX = cursorPosX;
-      lastPosY = cursorPosY;
     }
 
     if (upDown) {
         marks.add(
           Positioned(
-            left: lastPosX,
-            top: lastPosY,
+            left: cursorPosX,
+            top: cursorPosY,
             child: Container(
               padding: EdgeInsets.fromLTRB(
                 markPad,
@@ -158,18 +160,24 @@ class _MyHomePageState extends State<MyHomePage> {
                 GestureDetector(
                   onPanStart: (details) {
                     setState(() {
-                      startVert = -1;
+                      startLeftVert = -1;
                     });
                   },
                   onPanUpdate: (details) {
                     setState(() {
-                      if (startVert == -1) {
-                        startVert = details.globalPosition.dy;
+                      if (startLeftVert == -1) {
+                        startLeftVert = details.globalPosition.dy;
+                        startLeftHori = details.globalPosition.dx;
+                       }
+                      var topVal = details.globalPosition.dy - startLeftVert;
+                      var leftVal = details.globalPosition.dx - startLeftHori;
+                      var dist = sqrt(pow(topVal, 2) + pow(leftVal, 2));
+                      if (topVal < 0) {
+                        dist *= -1;
                       }
-                      var topVal = details.globalPosition.dy - startVert;
+                      dist *= cursorRatio;
                       topVal *= cursorRatio;
-                      lastPosY = cursorPosY;
-                      cursorPosY += topVal;
+                      cursorPosY += dist;
                       if (cursorPosY < 0) {
                         cursorPosY = 0;
                       }
@@ -213,18 +221,24 @@ class _MyHomePageState extends State<MyHomePage> {
                 GestureDetector(
                   onPanStart: (details) {
                     setState(() {
-                      startHori = -1;
+                      startRightVert = -1;
+                      startRightHori = -1;
                     });
                   },
                   onPanUpdate: (details) {
                     setState(() {
-                      if (startHori == -1) {
-                        startHori = details.globalPosition.dx;
+                      if (startRightHori == -1) {
+                        startRightVert = details.globalPosition.dy;
+                        startRightHori = details.globalPosition.dx;
                       }
-                      var leftVal = details.globalPosition.dx - startHori;
-                      leftVal *= cursorRatio;
-                      lastPosX = cursorPosX;
-                      cursorPosX += leftVal;
+                      var topVal = details.globalPosition.dy - startRightVert;
+                      var leftVal = details.globalPosition.dx - startRightHori;
+                      var dist = sqrt(pow(topVal, 2) + pow(leftVal, 2));
+                      if (leftVal < 0) {
+                        dist *= -1;
+                      }
+                      dist *= cursorRatio;
+                      cursorPosX += dist;
                       if (cursorPosX < 0) {
                         cursorPosX = 0;
                       }
